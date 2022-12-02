@@ -18,6 +18,17 @@ API yang harus di siapkan :
 3. get userdata (email, balance ,status dll.)
 4. put user email (ganti email yang saat ini dipakai) ⇒ verifikasi email lama dulu ⇒kemudian verifikasi email baru
 
+## How to Use ?
+
+1. Create the database
+2. Run this script:
+
+```
+npm install
+```
+
+3. Ready to go ^^
+
 ## API Information
 
 #### For SignUp
@@ -61,3 +72,20 @@ API yang harus di siapkan :
 | Headers | Type     | Description  |
 | :------ | :------- | :----------- |
 | `Token` | `string` | **Required** |
+
+## ENV
+
+PORT = port_express
+
+HOST_PG = localhost
+DB_NAME = nusatech (menyesuaikan)
+DB_USER = postgres (menyesuaikan)
+DB_PASS = root (menyesuaikan)
+DB_PORT = 5432 (menyesuaikan)
+
+AUTH_EMAIL = bambangmahardhika1403@gmail.com (menyesuaikan)
+AUTH_PASS = mtyhxkmrunywfivf (menyeseuaikan)
+
+SECRET_KEY_TOKEN = trial_nusatech (menyesuaikan)
+
+SALT_BCRYPT = 10 (menyesuaikan)
