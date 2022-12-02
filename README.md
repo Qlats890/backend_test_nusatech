@@ -75,17 +75,13 @@ npm install
 
 ## ENV
 
-PORT = port_express
-
-HOST_PG = localhost
-DB_NAME = nusatech (menyesuaikan)
-DB_USER = postgres (menyesuaikan)
-DB_PASS = root (menyesuaikan)
-DB_PORT = 5432 (menyesuaikan)
-
-AUTH_EMAIL = bambangmahardhika1403@gmail.com (menyesuaikan)
-AUTH_PASS = mtyhxkmrunywfivf (menyeseuaikan)
-
-SECRET_KEY_TOKEN = trial_nusatech (menyesuaikan)
-
-SALT_BCRYPT = 10 (menyesuaikan)
+PORT = port_express <br>
+HOST_PG = localhost <br>
+DB_NAME = nusatech (menyesuaikan) <br>
+DB_USER = postgres (menyesuaikan) <br>
+DB_PASS = root (menyesuaikan) <br>
+DB_PORT = 5432 (menyesuaikan) <br>
+AUTH_EMAIL = bambangmahardhika1403@gmail.com (menyesuaikan) <br>
+AUTH_PASS = mtyhxkmrunywfivf (menyeseuaikan) <br>
+SECRET_KEY_TOKEN = trial_nusatech (menyesuaikan) <br>
+SALT_BCRYPT = 10 (menyesuaikan) <br>
