@@ -18,3 +18,5 @@ API yang harus di siapkan :
 2. post signin
 3. get userdata (email, balance ,status dll.)
 4. put user email (ganti email yang saat ini dipakai) ⇒ verifikasi email lama dulu ⇒kemudian verifikasi email baru
+
+Untuk API

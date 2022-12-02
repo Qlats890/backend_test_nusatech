@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize");
+const { DataTypes, Sequelize } = require("sequelize");
 const db = require("../config/dbConnection");
 
 const User = require("./userModels");
@@ -6,9 +6,9 @@ const User = require("./userModels");
 const Mailer = db.define(
   "mailer",
   {
-    id_currency: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+    id_mailer: {
+      type: DataTypes.UUID,
+      defaultValue:Sequelize.UUIDV4,
       primaryKey: true,
     },
     email: {

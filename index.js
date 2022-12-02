@@ -4,12 +4,15 @@ const express = require("express");
 
 const Router = require("./src/routers");
 const db = require("./src/config/dbConnection");
+const cronSendVerification = require("./src/mailers/sendVerification");
 
-const PORT = process.env.PORT | 3123;
+const PORT = process.env.PORT | 3000;
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+cronSendVerification();
 
 app.use("/", Router);
 
@@ -19,6 +22,7 @@ app.use((req, res, next) => {
   });
 });
 
+console.log(PORT);
 app.listen(PORT, async () => {
   try {
     await db.authenticate();

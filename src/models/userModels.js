@@ -3,7 +3,7 @@ const { DataTypes } = require("sequelize");
 const db = require("../config/dbConnection");
 
 const User = db.define(
-  "user",
+  "ms_user",
   {
     id_user: {
       type: DataTypes.INTEGER,
@@ -13,6 +13,7 @@ const User = db.define(
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     pass: {
       type: DataTypes.STRING,
@@ -24,7 +25,7 @@ const User = db.define(
   },
   {
     paranoid: true,
-    tableName: "user",
+    tableName: "ms_user",
   }
 );
 
