@@ -34,7 +34,7 @@ npm install
 #### For SignUp
 
 ```http
-  POST http://localhost:PORT/signup
+  POST http://localhost:PORT/v1/signup
 ```
 
 | Body    | Type     | Description  |
@@ -45,7 +45,7 @@ npm install
 #### For Verify SignUp
 
 ```http
-  get http://localhost:PORT/verify/:pin
+  get http://localhost:PORT/v1/verify/:pin
 ```
 
 | Parameter | Type     | Description  |
@@ -55,7 +55,7 @@ npm install
 #### For SignIn
 
 ```http
-  POST http://localhost:PORT/signin
+  POST http://localhost:PORT/v1/signin
 ```
 
 | Body    | Type     | Description  |
@@ -66,12 +66,38 @@ npm install
 #### For Get Userdata
 
 ```http
-  GET http://localhost:PORT/userdata
+  GET http://localhost:PORT/v1/userdata
 ```
 
 | Headers | Type     | Description  |
 | :------ | :------- | :----------- |
 | `Token` | `string` | **Required** |
+
+#### For Get Send Notif To Change Email
+
+```http
+  GET http://localhost:PORT/v1/send-notif-change-email
+```
+
+| Headers | Type     | Description  |
+| :------ | :------- | :----------- |
+| `token` | `string` | **Required** |
+| Body    | Type     | Description  |
+| :------ | :------- | :----------- |
+| `email` | `string` | **Required** |
+| `pass`  | `string` | **Required** |
+
+```http
+  GET http://localhost:PORT/v1/change-email
+```
+
+| Headers   | Type     | Description  |
+| :-------- | :------- | :----------- |
+| `token`   | `string` | **Required** |
+| Body      | Type     | Description  |
+| :------   | :------- | :----------- |
+| `email`   | `string` | **Required** |
+| `newEmai` | `string` | **Required** |
 
 ## ENV
 
