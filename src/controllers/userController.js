@@ -119,6 +119,94 @@ class UserController {
       }
     } catch (error) {}
   }
+
+  static async userNotifChangeEmail(req, res) {
+    //*declare variable from request
+    const email = req.body.email;
+    const pass = req.body.pass;
+    const status = "pending";
+    //*validation input with interface
+    const { stats, result } = SignUp({ email, pass, status });
+    // console.log(stats, result);
+    //*if invalid input then send error
+    if (!stats) res.status(400).json({ data: "400 - Bad Request" });
+    //*if valid then go
+    try {
+      const data = await User.findAll({
+        raw: true,
+        attributes: ["email", "id_user"],
+        where: {
+          email: result.email,
+        },
+      });
+      // * create mailer to send verification pin
+      await Mailer.create({
+        userIdUser: data[0].id_user,
+        email: data[0].email,
+        pin: jwtSignMailer(data[0].id_user, data[0].email),
+        status,
+      });
+      res.status(200).json({
+        data: "Notif Change Email Success!",
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        data: "Server Error!",
+      });
+    }
+  }
+
+  static async userChangeEmail(req, res) {
+    //*declare variable from request
+    const email = req.body.email;
+    const newEmail = req.body.newEmail;
+    const status = "pending";
+    //*validation input with interface
+    const { stats, result } = SignUp({ email: newEmail, pass: "pass", status });
+    // console.log(stats, result);
+    //*if invalid input then send error
+    if (!stats) res.status(400).json({ data: "400 - Bad Request" });
+    //*if valid then go
+    try {
+      //* change data
+      await User.update(
+        {
+          email: result.email,
+          status,
+        },
+        {
+          where: {
+            email,
+          },
+        }
+      );
+      //* take email and id_user first
+      const data = await User.findAll({
+        attributes: ["id_user", "email"],
+        where: {
+          email: result.email,
+        },
+      });
+      // * Add Mailer too
+      await Mailer.create({
+        userIdUser: data[0].id_user,
+        email: data[0].email,
+        pin: jwtSignMailer(data[0].id_user, data[0].email),
+        status,
+      });
+      // * send respons
+      res.status(200).json({
+        data: "Update Account success",
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        data: "Server Error!",
+      });
+    }
+  }
+
   static async verify(req, res) {
     //* declare pin
     const pin = req.params.pin;
@@ -152,7 +240,9 @@ class UserController {
         }
       );
       res.status(200).json({
-        data: "Verify Success!",
+        data: {
+          email,
+        },
       });
     } catch (error) {
       res.status(500).json({

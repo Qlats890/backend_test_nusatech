@@ -1,7 +1,10 @@
 const Cron = require("node-cron");
 const { where } = require("sequelize");
 const mailerConfig = require("../config/mailersConnection");
-const { getEmailDependOnStatus } = require("../controllers/mailerController");
+const {
+  getEmailDependOnStatus,
+  getMailerDependOnEmailAndStatus,
+} = require("../controllers/mailerController");
 const { jwtVerifyMailer } = require("../helper/jwt");
 const Mailer = require("../models/mailerModels");
 const User = require("../models/userModels");
@@ -55,6 +58,8 @@ function cronSendVerification() {
     try {
       // get email where is still have pending status
       const arrEmail = await getEmailDependOnStatus("pending");
+      // get email where is still have mailer pending status
+      const arrEmailOnMailer = await getMailerDependOnEmailAndStatus("pending");
       // send the verification
       if (arrEmail.length === 0) {
         console.log("Chill");
@@ -77,6 +82,31 @@ function cronSendVerification() {
               }
             );
             await User.update(
+              {
+                status: "registered",
+              },
+              {
+                where: {
+                  email,
+                },
+              }
+            );
+          }
+        }
+      }
+      if (arrEmailOnMailer.length === 0) {
+        console.log("Chill In Mailer");
+      } else if (arrEmail.length === 0 && arrEmailOnMailer.length !== 0) {
+        for (let i = 0; i < arrEmailOnMailer.length; i++) {
+          const { status, data, idMailer } = await emailVerification(
+            arrEmailOnMailer[i].email
+          );
+          // console.log(data);
+          if (status) {
+            const { email } = jwtVerifyMailer(data);
+            console.log(jwtVerifyMailer(data));
+            console.log(email);
+            await Mailer.update(
               {
                 status: "registered",
               },
