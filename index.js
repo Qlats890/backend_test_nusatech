@@ -6,7 +6,7 @@ const Router = require("./src/routers");
 const db = require("./src/config/dbConnection");
 const cronSendVerification = require("./src/mailers/sendVerification");
 
-const PORT = process.env.PORT | 3000;
+const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(express.json());
